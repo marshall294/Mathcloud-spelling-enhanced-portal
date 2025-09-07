@@ -65,7 +65,6 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
       <button id="startBtn" type="button">Start Practice</button>
       <button id="restartBtn" type="button" class="ghost">Restart</button>
       <button id="shuffleBtn" type="button" class="ghost small">Shuffle List</button>
-      <button id="showListBtn" type="button" class="ghost small">Show Word List</button>
     </div>
   </form>
 </section>
@@ -88,7 +87,6 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
       <button id="pronounceBtn" type="button">Pronounce Word</button>
       <button id="meaningBtn" type="button" class="ghost small">Read Meaning</button>
       <button id="sentenceBtn" type="button" class="ghost small">Read Example Sentence</button>
-      <button id="revealBtn" type="button" class="ghost small">Reveal Spelling</button>
     </div>
   </div>
 
@@ -121,26 +119,26 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   </div>  <script>
   // Grade 5 word list with meaning & sentence
   const WORDS = [
-    {w:'accommodate', m:'To provide with something needed; to make room for', s:'The hotel can accommodate 200 guests.'},
-    {w:'agreement', m:'A decision reached by two or more people', s:'They reached an agreement after talking.'},
-    {w:'bravery', m:'Courageous behaviour or character', s:'Her bravery during the rescue was praised.'},
-    {w:'calculate', m:'To work out by using mathematics', s:'Calculate the total cost of the items.'},
-    {w:'century', m:'One hundred years', s:'The museum houses artifacts from the last century.'},
-    {w:'ceremony', m:'A formal event held on important occasions', s:'The graduation ceremony was held outside.'},
-    {w:'curious', m:'Eager to know or learn something', s:'The curious student asked many questions.'},
-    {w:'decide', m:'To make a choice', s:'We must decide where to go for the trip.'},
-    {w:'eager', m:'Very excited and wanting to do something', s:'She was eager to start the new project.'},
-    {w:'environment', m:'The surroundings or conditions where a person, animal, or plant lives', s:'We must protect the environment.'},
-    {w:'frequent', m:'Happening often', s:'He made frequent visits to the library.'},
-    {w:'generous', m:'Willing to give more of something; kind', s:'The generous donation helped many families.'},
-    {w:'history', m:'The study of past events', s:'We read about ancient history in class.'},
-    {w:'imagine', m:'To form a picture or idea in the mind', s:'Imagine what life would be like on another planet.'},
-    {w:'journey', m:'A trip from one place to another', s:'Their journey lasted three days.'},
-    {w:'knowledge', m:'Information and understanding that you get from experience or education', s:'Books are a great source of knowledge.'},
-    {w:'language', m:'A system of words used to communicate', s:'She learns a new language every year.'},
-    {w:'neighbor', m:'A person living near you', s:'Our neighbor helped us fix the fence.'},
-    {w:'opinion', m:'A belief or view about something', s:'In my opinion, that was the best movie.'},
-    {w:'perhaps', m:'Maybe; possibly', s:'Perhaps we will go to the park tomorrow.'}
+    {w:'accommodate', m:'To provide with something needed; to make room for', s:'The hotel can spw 200 guests.'},
+    {w:'agreement', m:'A decision reached by two or more people', s:'They reached an spw after talking.'},
+    {w:'bravery', m:'Courageous behaviour or character', s:'Her spw during the rescue was praised.'},
+    {w:'calculate', m:'To work out by using mathematics', s:'spw the total cost of the items.'},
+    {w:'century', m:'One hundred years', s:'The museum houses artifacts from the last spw.'},
+    {w:'ceremony', m:'A formal event held on important occasions', s:'The graduation spw was held outside.'},
+    {w:'curious', m:'Eager to know or learn something', s:'The spw student asked many questions.'},
+    {w:'decide', m:'To make a choice', s:'We must spw where to go for the trip.'},
+    {w:'eager', m:'Very excited and wanting to do something', s:'She was spw to start the new project.'},
+    {w:'environment', m:'The surroundings or conditions where a person, animal, or plant lives', s:'We must protect the spw.'},
+    {w:'frequent', m:'Happening often', s:'He made spw visits to the library.'},
+    {w:'generous', m:'Willing to give more of something; kind', s:'The spw donation helped many families.'},
+    {w:'history', m:'The study of past events', s:'We read about ancient spw in class.'},
+    {w:'imagine', m:'To form a picture or idea in the mind', s:'spw what life would be like on another planet.'},
+    {w:'journey', m:'A trip from one place to another', s:'Their spw lasted three days.'},
+    {w:'knowledge', m:'Information and understanding that you get from experience or education', s:'Books are a great source of spw.'},
+    {w:'language', m:'A system of words used to communicate', s:'She learns a new spw every year.'},
+    {w:'neighbor', m:'A person living near you', s:'Our spw helped us fix the fence.'},
+    {w:'opinion', m:'A belief or view about something', s:'In my spw, that was the best movie.'},
+    {w:'perhaps', m:'Maybe; possibly', s:'spw we will go to the park tomorrow.'}
   ];
 
   // UI refs
