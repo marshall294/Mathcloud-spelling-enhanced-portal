@@ -6,37 +6,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Grade 5 Spelling — SpellingBuddy</title>
   <style>
-    :root{--accent:#1565c0;--muted:#6b7280;--bg:#f8fafc}
+    :root{--accent:#1565c0;--accent-2:#7c3aed;--muted:#6b7280;--bg:#eef2ff}
     *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;line-height:1.4;margin:0;background:var(--bg);color:#0f172a}
-    .wrap{max-width:980px;margin:24px auto;padding:18px}
-    header{display:flex;gap:12px;align-items:center;justify-content:space-between}
-    h1{font-size:1.4rem;margin:0}
-    .card{background:white;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(12,18,30,0.06);margin-top:16px}form.row{display:flex;gap:12px;flex-wrap:wrap}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;line-height:1.45;margin:0;background:linear-gradient(180deg,#f8fafc 0%, #eef2ff 60%);color:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{max-width:980px;width:100%;margin:0 auto}header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+h1{font-size:1.5rem;margin:0;letter-spacing:0.2px}
+.card{background:white;padding:20px;border-radius:16px;box-shadow:0 8px 30px rgba(20,30,60,0.08);margin-top:8px;overflow:hidden}
+
+form.row{display:flex;gap:12px;flex-wrap:wrap}
 .field{flex:1;min-width:180px}
 label{display:block;font-size:0.9rem;color:var(--muted);margin-bottom:6px}
-input[type=text]{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8;font-size:1rem}
+input[type=text]{width:100%;padding:12px;border-radius:10px;border:1px solid #eef4ff;font-size:1rem;background:linear-gradient(180deg,#fff,#fbfdff)}
 
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-button{background:var(--accent);color:white;padding:10px 12px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+button{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+button:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(21,101,192,0.12)}
 button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(21,101,192,0.12)}
 button.small{padding:8px 10px;font-size:0.9rem}
 
 .play-box{display:flex;gap:12px;align-items:center}
 .word-card{display:flex;flex-direction:column;gap:10px}
 
-.progress{height:12px;background:#e6eef8;border-radius:999px;overflow:hidden}
-.progress > i{display:block;height:100%;background:linear-gradient(90deg,#6fb3ff,#1565c0);width:0%}
+.progress{height:14px;background:#eef6ff;border-radius:999px;overflow:hidden;border:1px solid rgba(12,18,30,0.03)}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));width:0%;transition:width .5s ease}
 
-.big-word{font-size:2rem;font-weight:700}
+.big-word{font-size:2.2rem;font-weight:800;letter-spacing:0.6px;min-width:220px}
 .meta{color:var(--muted);font-size:0.95rem}
 
-.results{margin-top:14px}
-ul {padding-left:18px}
+.results{margin-top:14px;min-height:36px}
+ul {padding-left:18px;margin-top:8px}
 
 footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
 
-@media (max-width:640px){.big-word{font-size:1.6rem}}
+/* animations */
+.card{transform:translateY(12px);opacity:0;animation:cardIn .5s ease forwards}
+@keyframes cardIn{to{transform:none;opacity:1}}
+
+.pulse{animation:pulse 1.6s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.fadeIn{animation:fadeIn .6s ease forwards}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* summary styles */
+.summary-hero{display:flex;align-items:center;gap:18px}
+.score-bubble{background:linear-gradient(180deg,#fff,#f5fbff);border-radius:12px;padding:18px 22px;box-shadow:0 8px 30px rgba(18,38,77,0.06);text-align:center}
+.score-num{font-size:2.6rem;font-weight:900;color:var(--accent)}
+.confetti{position:absolute;left:0;right:0;top:-20px;height:0;pointer-events:none}
+.confetti span{position:absolute;width:10px;height:10px;border-radius:2px;opacity:0;animation:fall 1500ms linear forwards}
+@keyframes fall{to{transform:translateY(220px) rotate(240deg);opacity:1}}
+
+@media (max-width:720px){.big-word{font-size:1.4rem}}
 
   </style>
 </head>
@@ -45,11 +66,9 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
     <header>
       <div>
         <h1>SpellingBuddy — Grade 5</h1>
-        <div class="meta">Practice spelling with pronunciation, meanings, sentences &amp; instant feedback</div>
+        <div class="meta">Practice spelling: listen, spell, get instant feedback — no example reveals</div>
       </div>
-      <div>
-        <div class="meta">Progress: <strong id="scoreLabel">0 / 0</strong></div>
-      </div>
+      <div class="meta">Progress: <strong id="scoreLabel">0 / 0</strong></div>
     </header><section class="card" id="setup">
   <form id="studentForm" class="row" autocomplete="off" spellcheck="false">
     <div class="field">
@@ -72,26 +91,26 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
 <section class="card" id="trainer" style="display:none">
   <div class="play-box">
     <div>
-      <div class="big-word" id="bigWord">—</div>
+      <div class="big-word pulse" id="bigWord">Listen &amp; Spell</div>
       <div class="meta">Word <span id="currentIndex">0</span> of <span id="totalWords">20</span></div>
     </div>
 
     <div style="margin-left:auto;text-align:right">
-      <div class="progress" style="width:220px"><i id="progBar"></i></div>
+      <div class="progress" style="width:260px"><i id="progBar"></i></div>
       <div class="meta">Score: <strong id="scoreOut">0</strong></div>
     </div>
   </div>
 
   <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
     <div class="controls">
-      <button id="pronounceBtn" type="button">Pronounce Word</button>
-      <button id="meaningBtn" type="button" class="ghost small">Read Meaning</button>
-      <button id="sentenceBtn" type="button" class="ghost small">Read Example Sentence</button>
+      <button id="pronounceBtn" type="button">Hear Word</button>
+      <button id="meaningBtn" type="button" class="ghost small">Hear Meaning</button>
+      <button id="sentenceBtn" type="button" class="ghost small">Hear Example (hidden)</button>
     </div>
   </div>
 
   <div style="margin-top:12px" class="word-card">
-    <label for="answerInput" class="meta">Type the spelling (The spw in the example sentences stands for the expected spelling word)</label>
+    <label for="answerInput" class="meta">Type the spelling (keyboard autocorrect disabled)</label>
     <input id="answerInput" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     <div style="display:flex;gap:8px;margin-top:8px">
       <button id="checkBtn" type="button">Check Answer</button>
@@ -102,9 +121,22 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   <div class="results" id="instantFeedback" aria-live="polite"></div>
 </section>
 
-<section class="card" id="summary" style="display:none">
-  <h3>Session Summary</h3>
-  <div id="summaryText"></div>
+<section class="card" id="summary" style="display:none;position:relative">
+  <div class="confetti" id="confetti"></div>
+  <div class="summary-hero">
+    <div class="score-bubble fadeIn">
+      <div class="meta">Student</div>
+      <div style="font-weight:800;margin-top:6px" id="studentNameOut">—</div>
+      <div style="margin-top:8px" class="meta">Final score</div>
+      <div class="score-num" id="animatedScore">0</div>
+      <div class="meta" id="scorePercent">—%</div>
+    </div>
+    <div style="flex:1">
+      <h3>Session Summary</h3>
+      <div id="summaryText"></div>
+    </div>
+  </div>
+
   <div style="margin-top:12px">
     <strong>Missed words</strong>
     <ul id="missedList"></ul>
@@ -114,38 +146,37 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   </div>
 </section>
 
-<footer>Built for teachers &amp; learners. Uses your browser's speech synthesis for audio pronunciation.</footer>
+<footer>Built for teachers &amp; learners. Uses your browser's speech synthesis for audio pronunciation. Example sentences do NOT reveal the spelling.</footer>
 
   </div>  <script>
-  // Grade 5 word list with meaning & sentence
+  // Grade 5 word list with meaning & sentence (example sentences intentionally include the word but the app will hide it when played)
   const WORDS = [
-    {w:'accommodate', m:'To provide with something needed; to make room for', s:'The hotel can spw 200 guests.'},
-    {w:'agreement', m:'A decision reached by two or more people', s:'They reached an spw after talking.'},
-    {w:'bravery', m:'Courageous behaviour or character', s:'Her spw during the rescue was praised.'},
-    {w:'calculate', m:'To work out by using mathematics', s:'spw the total cost of the items.'},
-    {w:'century', m:'One hundred years', s:'The museum houses artifacts from the last spw.'},
-    {w:'ceremony', m:'A formal event held on important occasions', s:'The graduation spw was held outside.'},
-    {w:'curious', m:'Eager to know or learn something', s:'The spw student asked many questions.'},
-    {w:'decide', m:'To make a choice', s:'We must spw where to go for the trip.'},
-    {w:'eager', m:'Very excited and wanting to do something', s:'She was spw to start the new project.'},
-    {w:'environment', m:'The surroundings or conditions where a person, animal, or plant lives', s:'We must protect the spw.'},
-    {w:'frequent', m:'Happening often', s:'He made spw visits to the library.'},
-    {w:'generous', m:'Willing to give more of something; kind', s:'The spw donation helped many families.'},
-    {w:'history', m:'The study of past events', s:'We read about ancient spw in class.'},
-    {w:'imagine', m:'To form a picture or idea in the mind', s:'spw what life would be like on another planet.'},
-    {w:'journey', m:'A trip from one place to another', s:'Their spw lasted three days.'},
-    {w:'knowledge', m:'Information and understanding that you get from experience or education', s:'Books are a great source of spw.'},
-    {w:'language', m:'A system of words used to communicate', s:'She learns a new spw every year.'},
-    {w:'neighbor', m:'A person living near you', s:'Our spw helped us fix the fence.'},
-    {w:'opinion', m:'A belief or view about something', s:'In my spw, that was the best movie.'},
-    {w:'perhaps', m:'Maybe; possibly', s:'spw we will go to the park tomorrow.'}
+    {w:'accommodate', m:'To provide with something needed; to make room for', s:'The hotel can accommodate 200 guests.'},
+    {w:'agreement', m:'A decision reached by two or more people', s:'They reached an agreement after talking.'},
+    {w:'bravery', m:'Courageous behaviour or character', s:'Her bravery during the rescue was praised.'},
+    {w:'calculate', m:'To work out by using mathematics', s:'Calculate the total cost of the items.'},
+    {w:'century', m:'One hundred years', s:'The museum houses artifacts from the last century.'},
+    {w:'ceremony', m:'A formal event held on important occasions', s:'The graduation ceremony was held outside.'},
+    {w:'curious', m:'Eager to know or learn something', s:'The curious student asked many questions.'},
+    {w:'decide', m:'To make a choice', s:'We must decide where to go for the trip.'},
+    {w:'eager', m:'Very excited and wanting to do something', s:'She was eager to start the new project.'},
+    {w:'environment', m:'The surroundings or conditions where a person, animal, or plant lives', s:'We must protect the environment.'},
+    {w:'frequent', m:'Happening often', s:'He made frequent visits to the library.'},
+    {w:'generous', m:'Willing to give more of something; kind', s:'The generous donation helped many families.'},
+    {w:'history', m:'The study of past events', s:'We read about ancient history in class.'},
+    {w:'imagine', m:'To form a picture or idea in the mind', s:'Imagine what life would be like on another planet.'},
+    {w:'journey', m:'A trip from one place to another', s:'Their journey lasted three days.'},
+    {w:'knowledge', m:'Information and understanding that you get from experience or education', s:'Books are a great source of knowledge.'},
+    {w:'language', m:'A system of words used to communicate', s:'She learns a new language every year.'},
+    {w:'neighbor', m:'A person living near you', s:'Our neighbor helped us fix the fence.'},
+    {w:'opinion', m:'A belief or view about something', s:'In my opinion, that was the best movie.'},
+    {w:'perhaps', m:'Maybe; possibly', s:'Perhaps we will go to the park tomorrow.'}
   ];
 
   // UI refs
   const startBtn = document.getElementById('startBtn');
   const restartBtn = document.getElementById('restartBtn');
   const shuffleBtn = document.getElementById('shuffleBtn');
-  const showListBtn = document.getElementById('showListBtn');
   const trainer = document.getElementById('trainer');
   const setup = document.getElementById('setup');
   const summary = document.getElementById('summary');
@@ -155,7 +186,6 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   const pronounceBtn = document.getElementById('pronounceBtn');
   const meaningBtn = document.getElementById('meaningBtn');
   const sentenceBtn = document.getElementById('sentenceBtn');
-  const revealBtn = document.getElementById('revealBtn');
   const answerInput = document.getElementById('answerInput');
   const checkBtn = document.getElementById('checkBtn');
   const skipBtn = document.getElementById('skipBtn');
@@ -168,9 +198,21 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   const missedList = document.getElementById('missedList');
   const restart2 = document.getElementById('restart2');
   const totalWordsSpan = document.getElementById('totalWords');
+  const studentNameOut = document.getElementById('studentNameOut');
+  const animatedScore = document.getElementById('animatedScore');
+  const scorePercent = document.getElementById('scorePercent');
+  const confetti = document.getElementById('confetti');
 
   // Session state
   let session = {name:'', words:[], index:0, score:0, missed:[]};
+
+  function escapeRegExp(string) { return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function getHiddenSentence(cur){
+    try{
+      const rg = new RegExp('\\b'+escapeRegExp(cur.w)+'\\b','ig');
+      return cur.s.replace(rg, '_____');
+    }catch(e){ return cur.s.replace(cur.w,'_____'); }
+  }
 
   function speak(text, opts={rate:1, pitch:1}){
     if('speechSynthesis' in window){
@@ -182,7 +224,6 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
   }
 
   function playCorrect(){
-    // quick pleasant tone sequence using WebAudio
     try{
       const ctx = new (window.AudioContext||window.webkitAudioContext)();
       const now = ctx.currentTime;
@@ -224,46 +265,40 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
     session.name = name;
     session.words = WORDS.map(x=>Object.assign({},x));
     session.index = 0; session.score=0; session.missed=[];
-    totalWordsSpan.textContent = session.words.length;
     document.getElementById('totalWords').textContent = session.words.length;
     setup.style.display='none'; trainer.style.display='block'; summary.style.display='none';
-    updateUI(); loadWord();
+    updateProgress(); loadWord();
   }
 
   function loadWord(){
     const cur = session.words[session.index];
-    bigWord.textContent = 'Listen and Spell';
+    bigWord.textContent = 'Listen & Spell';
     currentIndex.textContent = session.index+1;
     answerInput.value=''; answerInput.focus();
     instantFeedback.innerHTML = '';
-    updateProgress();
     // pronounce automatically when loaded
     speak(cur.w, {rate:0.95});
   }
 
   function updateProgress(){
+    const answered = session.score + session.missed.length;
+    const pct = Math.round((answered / session.words.length) * 100);
+    progBar.style.width = pct + '%';
     scoreOut.textContent = session.score;
     scoreLabel.textContent = `${session.score} / ${session.words.length}`;
-    const pct = Math.round((session.index/session.words.length)*100);
-    progBar.style.width = pct + '%';
-  }
-
-  function revealSpelling(){
-    const cur = session.words[session.index];
-    instantFeedback.innerHTML = `<div><strong>Spelling:</strong> ${cur.w}</div>`;
-    speak(cur.w);
   }
 
   function readMeaning(){
     const cur = session.words[session.index];
-    instantFeedback.innerHTML = `<div><strong>Meaning:</strong> ${cur.m}</div>`;
-    speak(`${cur.w}. Meaning: ${cur.m}`);
+    // only speak meaning (no text revealing the word)
+    speak(`Meaning: ${cur.m}`);
   }
 
   function readSentence(){
     const cur = session.words[session.index];
-    instantFeedback.innerHTML = `<div><strong>Example:</strong> ${cur.s}</div>`;
-    speak(`${cur.w}. Example sentence: ${cur.s}`);
+    const hidden = getHiddenSentence(cur);
+    // speak the sentence with the word hidden
+    speak(`Example sentence: ${hidden}`);
   }
 
   function checkAnswer(){
@@ -273,71 +308,108 @@ footer{margin-top:20px;color:var(--muted);font-size:0.85rem;text-align:center}
     if(given.toLowerCase() === cur.w.toLowerCase()){
       session.score += 1;
       playCorrect();
-      instantFeedback.innerHTML = `<div style="color:green"><strong>Correct!</strong> ${cur.w}</div>`;
+      instantFeedback.innerHTML = `<div style="color:green"><strong>Correct!</strong></div>`;
     } else {
       session.missed.push(Object.assign({},cur,{given}));
       playWrong();
-      instantFeedback.innerHTML = `<div style="color:#b91c1c"><strong>Not quite.</strong> You wrote: <em>${escapeHtml(given)}</em>. Correct: <strong>${cur.w}</strong></div>`;
+      instantFeedback.innerHTML = `<div style="color:#b91c1c"><strong>Not quite.</strong></div>`;
     }
-    // move next after short delay
-    nextWord();
+    updateProgress();
+    // move next after short delay so student can hear feedback
+    setTimeout(nextWord, 700);
   }
 
   function nextWord(){
     session.index += 1;
     if(session.index >= session.words.length){ finishSession(); return }
-    updateProgress();
-    setTimeout(()=>{ loadWord(); }, 700);
+    loadWord();
   }
 
   function skipWord(){
     const cur = session.words[session.index];
     session.missed.push(Object.assign({},cur,{given:''}));
-    instantFeedback.innerHTML = `<div style="color:#b91c1c"><strong>Skipped.</strong> The correct spelling is <strong>${cur.w}</strong></div>`;
+    instantFeedback.innerHTML = `<div style="color:#b91c1c"><strong>Skipped.</strong></div>`;
     playWrong();
-    nextWord();
+    updateProgress();
+    setTimeout(nextWord, 700);
   }
 
   function finishSession(){
     trainer.style.display='none'; summary.style.display='block';
     const total = session.words.length; const score = session.score;
     const percent = Math.round((score/total)*100);
-    summaryText.innerHTML = `<p>Student: <strong>${escapeHtml(session.name)}</strong><br>Score: <strong>${score} / ${total}</strong> (${percent}%)</p>`;
+    studentNameOut.textContent = session.name;
+    summaryText.innerHTML = `<p><strong>${score}</strong> correct out of <strong>${total}</strong> words.</p>`;
+
     missedList.innerHTML = '';
     if(session.missed.length){
-      session.missed.forEach(m=>{
+      session.missed.forEach((m,i)=>{
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${m.w}</strong> — your answer: <em>${escapeHtml(m.given||'--')}</em> — meaning: ${m.m}`;
+        li.style.opacity = '0';
+        li.style.transform = 'translateY(8px)';
+        li.style.transition = 'opacity .4s ease, transform .4s ease';
+        li.innerHTML = `<strong>${m.w}</strong> — your answer: <em>${escapeHtml(m.given||'--')}</em> — meaning: ${escapeHtml(m.m)}`;
         missedList.appendChild(li);
+        setTimeout(()=>{ li.style.opacity='1'; li.style.transform='none'; }, 120 * i);
       });
     } else {
-      missedList.innerHTML = '<li>No missed words — excellent!</li>';
+      missedList.innerHTML = '<li>Excellent — no missed words!</li>';
     }
+
+    // animate score
+    animateCount(animatedScore, 0, score, 900);
+    scorePercent.textContent = percent + '%';
+
+    // some confetti if good result
+    if(percent >= 60){ launchConfetti(); }
+  }
+
+  function launchConfetti(){
+    confetti.innerHTML = '';
+    const colors = ['#f43f5e','#fb923c','#f59e0b','#10b981','#60a5fa','#7c3aed'];
+    for(let i=0;i<18;i++){
+      const el = document.createElement('span');
+      el.style.left = (5 + Math.random()*90) + '%';
+      el.style.top = '-6px';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.width = (6+Math.random()*8) + 'px';
+      el.style.height = el.style.width;
+      el.style.transform = `rotate(${Math.random()*360}deg)`;
+      el.style.animationDelay = (Math.random()*200) + 'ms';
+      confetti.appendChild(el);
+    }
+  }
+
+  function animateCount(el, start, end, duration){
+    const startTime = performance.now();
+    function step(now){
+      const progress = Math.min((now - startTime) / duration, 1);
+      const value = Math.floor(start + (end - start) * progress);
+      el.textContent = value;
+      if(progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
   function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   // Event bindings
-  startBtn.addEventListener('click', ()=>{ startSession(); });
+  startBtn.addEventListener('click', startSession);
   pronounceBtn.addEventListener('click', ()=>{ const cur = session.words[session.index]; speak(cur.w); });
-  meaningBtn.addEventListener('click', ()=>{ readMeaning(); });
-  sentenceBtn.addEventListener('click', ()=>{ readSentence(); });
-  revealBtn.addEventListener('click', ()=>{ revealSpelling(); });
-  checkBtn.addEventListener('click', ()=>{ checkAnswer(); });
-  skipBtn.addEventListener('click', ()=>{ skipWord(); });
+  meaningBtn.addEventListener('click', readMeaning);
+  sentenceBtn.addEventListener('click', readSentence);
+  checkBtn.addEventListener('click', checkAnswer);
+  skipBtn.addEventListener('click', skipWord);
   restartBtn.addEventListener('click', ()=>{ window.location.reload(); });
   restart2.addEventListener('click', ()=>{ window.location.reload(); });
-  shuffleBtn.addEventListener('click', ()=>{ shuffleArray(WORDS); alert('Word list shuffled. Start to practice with the new order.'); });
-  showListBtn.addEventListener('click', ()=>{ const list = WORDS.map(x=>x.w).join(', '); alert('Word list:\n\n'+list); });
+  shuffleBtn.addEventListener('click', ()=>{ shuffleArray(WORDS); alert('Word list shuffled. Start practice to use the new order.'); });
 
   // allow Enter to submit
   answerInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); checkAnswer(); } });
 
-  // Initialize UI values
+  // Init
   document.getElementById('totalWords').textContent = WORDS.length;
   scoreLabel.textContent = `0 / ${WORDS.length}`;
-
-  // Accessibility: focus on name field on load
   studentNameInput.focus();
   </script></body>
 </html>
